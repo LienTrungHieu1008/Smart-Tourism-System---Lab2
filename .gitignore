@@ -69,3 +69,7 @@ cover/
 # Databases
 *.db
 *.sqlite3
+
+# Documents
+*.pdf
+*.ipynb
