@@ -73,3 +73,7 @@ cover/
 # Documents
 *.pdf
 *.ipynb
+
+# Video files
+*.mp4
+*.mkv
