@@ -1,10 +1,8 @@
-"""Script tạo file data.py chứa 1000 địa điểm du lịch Việt Nam."""
 import random
 import os
 
 random.seed(42)
 
-# 100 địa điểm gốc viết tay
 hand_written = [
     {"id": 1, "name": "Vịnh Hạ Long", "description": "Di sản thiên nhiên thế giới ở Quảng Ninh với hàng ngàn hòn đảo đá vôi kỳ vĩ trên biển."},
     {"id": 2, "name": "Phố cổ Hội An", "description": "Khu phố cổ kính ở Quảng Nam với những chiếc đèn lồng, kiến trúc độc đáo và không gian yên bình đậm chất văn hóa."},

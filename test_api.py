@@ -189,8 +189,8 @@ except Exception as e:
 print(f"\n{BOLD}{CYAN}{'='*60}")
 print(f"  TỔNG KẾT KẾT QUẢ KIỂM THỬ")
 print(f"{'='*60}{RESET}")
-print(f"  {GREEN}✓ Passed: {passed}{RESET}")
-print(f"  {RED}✗ Failed: {failed}{RESET}")
+print(f"  {GREEN} Passed: {passed}{RESET}")
+print(f"  {RED} Failed: {failed}{RESET}")
 print(f"  Tổng cộng: {passed + failed} test cases")
 print(f"{CYAN}{'='*60}{RESET}\n")
 
