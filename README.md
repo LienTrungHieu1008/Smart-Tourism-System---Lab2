@@ -53,8 +53,8 @@ Trả về top_k địa điểm có điểm tương đồng cao nhất dưới d
 
 ### 2. Clone dự án
 ```bash
-git clone <URL_REPO>
-cd API
+git clone https://github.com/LienTrungHieu1008/Smart-Tourism-API
+cd Smart-Tourism-API
 ```
 
 ### 3. Tạo môi trường ảo (khuyến nghị)
