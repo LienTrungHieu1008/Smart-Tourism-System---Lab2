@@ -13,7 +13,7 @@ async function search() {
     loadingDiv.style.display = 'flex';
 
     try {
-        const res = await fetch('/suggest', {
+        const res = await fetch('/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ query: query, top_k: 5 })
