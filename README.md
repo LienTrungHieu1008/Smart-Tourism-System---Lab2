@@ -7,7 +7,7 @@
 | **Họ và tên** | `Liên Trung Hiếu` |
 | **MSSV** | `24120049` |
 | **Lớp** | `24CTT3` |
-| **Môn học** | Tư Duy Tính Toán |
+| **Môn học** | `Tư Duy Tính Toán` |
 | **Giảng viên** | `Lê Đức Khoan` |
 
 ---
@@ -18,8 +18,8 @@
 |-----------|----------|
 | **Tên mô hình** | `all-MiniLM-L6-v2` |
 | **Hugging Face** | [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) |
-| **Loại** | Sentence Transformer — mã hóa văn bản thành vector 384 chiều |
-| **Ứng dụng** | Tính toán độ tương đồng ngữ nghĩa (Cosine Similarity) giữa câu truy vấn và mô tả địa điểm |
+| **Loại** | `Sentence Transformer — mã hóa văn bản thành vector 384 chiều `
+| **Ứng dụng** | `Tính toán độ tương đồng ngữ nghĩa (Cosine Similarity) giữa câu truy vấn và mô tả địa điểm` |
 
 ---
 
@@ -101,7 +101,7 @@ uvicorn main:app --reload
 
 ### 3. Truy cập
 - **Thông tin API (JSON)**: http://127.0.0.1:8000
-- **Giao diện web**: http://127.0.0.1:8000/ui
+- **Giao diện web**: http://127.0.0.1:8000/static/index.html
 - **API Docs (Swagger)**: http://127.0.0.1:8000/docs
 - **ReDoc**: http://127.0.0.1:8000/redoc
 
