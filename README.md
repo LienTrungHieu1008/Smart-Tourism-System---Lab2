@@ -101,7 +101,7 @@ uvicorn main:app --reload
 
 ### 3. Truy cập
 - **Thông tin API (JSON)**: http://127.0.0.1:8000
-- **Giao diện web**: http://127.0.0.1:8000/static/index.html
+- **Giao diện web**: http://127.0.0.1:8000/ui
 - **API Docs (Swagger)**: http://127.0.0.1:8000/docs
 - **ReDoc**: http://127.0.0.1:8000/redoc
 
@@ -252,7 +252,7 @@ for dest in resp.json():
 ## Video Demo
 
 [![Demo API Smart Tourism](https://img.youtube.com/vi/QmbwUO5al_4/hqdefault.jpg)](https://youtu.be/QmbwUO5al_4)
-> 💡 *Nhấn vào ảnh trên để xem video Demo trên YouTube.*
+> *Nhấn vào ảnh trên để xem video Demo trên YouTube.*
 
 ---
 
