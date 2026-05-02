@@ -44,4 +44,4 @@ desktop.ini
 # Lab files (không cần nộp)
 lab2.txt
 read_pdf.py
-[LAB*].pdf
+*.pdf

@@ -17,7 +17,7 @@ try:
     
     # options chứa mã định danh dự án Firebase của bạn (lấy từ Firebase Console)
     firebase_admin.initialize_app(cred, {
-        'projectId': 'smarttourism-api'
+        'projectId': 'smart-tourism-e91aa'
     })
     
     # db là biến lưu trữ kết nối cơ sở dữ liệu. 
