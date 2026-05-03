@@ -19,7 +19,7 @@ ENV/
 *.swp
 *.swo
 
-# Firebase / Google Cloud (KHÔNG ĐƯỢC đưa lên GitHub)
+# Firebase / Google Cloud 
 service-account.json
 *-firebase-adminsdk-*.json
 application_default_credentials.json
@@ -41,7 +41,7 @@ desktop.ini
 *.cache
 *.tmp
 
-# Lab files (không cần nộp)
+# Lab files 
 lab2.txt
 read_pdf.py
 *.pdf
