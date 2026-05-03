@@ -4,7 +4,6 @@ import json
 import sys
 import os
 
-# Fix lỗi encoding tiếng Việt trên Windows Terminal
 sys.stdout.reconfigure(encoding='utf-8')
 
 BASE_URL = "http://127.0.0.1:8000"
@@ -16,11 +15,9 @@ BASE_URL = "http://127.0.0.1:8000"
 #      firebase.auth().currentUser.getIdToken().then(t => console.log(t))
 #   3. Copy chuỗi dài đó và dán vào biến ID_TOKEN bên dưới.
 # -------------------------------------------------------------------
-ID_TOKEN = os.environ.get("FIREBASE_TOKEN", "")  # Lấy từ biến môi trường hoặc để trống
+ID_TOKEN = os.environ.get("FIREBASE_TOKEN", "")  
 
-# -------------------------------------------------------------------
-# Màu sắc cho output Terminal đẹp hơn
-# -------------------------------------------------------------------
+
 GREEN  = "\033[92m"
 RED    = "\033[91m"
 YELLOW = "\033[93m"
@@ -78,7 +75,6 @@ print_header("NHÓM A: ENDPOINT CÔNG KHAI")
 try:
     resp = requests.get(f"{BASE_URL}/")
     data = resp.json()
-    # Kiểm tra đúng field mà main.py trả về: "system", "firebase_connected", "message"
     success = (
         resp.status_code == 200
         and "system" in data
@@ -93,7 +89,6 @@ except Exception as e:
 try:
     resp = requests.get(f"{BASE_URL}/health")
     data = resp.json()
-    # Kiểm tra đúng field mà main.py trả về: "status", "firebase"
     success = (
         resp.status_code == 200
         and data.get("status") == "healthy"
@@ -176,9 +171,8 @@ except Exception as e:
 print_header("NHÓM C: ENDPOINT BẢO MẬT (cần Firebase Token)")
 
 if not ID_TOKEN:
-    print(f"  {YELLOW}ℹ  Chưa có Token → Bỏ qua toàn bộ nhóm C.")
+    print(f"  {YELLOW}  Chưa có Token → Bỏ qua toàn bộ nhóm C.")
     print(f"     Xem hướng dẫn lấy Token ở đầu file test_api.py{RESET}")
-    # Đánh dấu skip cho cả nhóm
     for name in [
         "C1 - GET /auth/me  trả về thông tin user",
         "C2 - GET /auth/me  không có Token → lỗi 403",
@@ -203,7 +197,7 @@ else:
     except Exception as e:
         print_result("C1 - GET /auth/me  trả về thông tin user", False, error=str(e))
 
-    # C2: GET /auth/me - không có Token → phải trả 403
+    # C2: GET /auth/me - không có Token -> phải trả 403
     try:
         resp = requests.get(f"{BASE_URL}/auth/me")
         success = resp.status_code == 403
@@ -310,15 +304,15 @@ total = passed + failed + skipped
 print(f"\n{BOLD}{CYAN}{'='*60}")
 print(f"  TỔNG KẾT KẾT QUẢ KIỂM THỬ")
 print(f"{'='*60}{RESET}")
-print(f"  {GREEN}✓ Passed : {passed}{RESET}")
-print(f"  {RED}✗ Failed : {failed}{RESET}")
-print(f"  {YELLOW}⊘ Skipped: {skipped}  (cần Token để chạy){RESET}")
+print(f"  {GREEN}Passed : {passed}{RESET}")
+print(f"  {RED}Failed : {failed}{RESET}")
+print(f"  {YELLOW}Skipped: {skipped}  (cần Token để chạy){RESET}")
 print(f"  Tổng cộng: {total} test cases")
 print(f"{CYAN}{'='*60}{RESET}\n")
 
 if failed > 0:
-    print(f"  {RED}{BOLD}❌ Có {failed} test(s) FAIL. Kiểm tra lại Backend!{RESET}\n")
+    print(f"  {RED}{BOLD} Có {failed} test(s) FAIL. Kiểm tra lại Backend!{RESET}\n")
     sys.exit(1)
 else:
-    print(f"  {GREEN}{BOLD}🎉 Tất cả test đều PASS hoặc SKIP (cần Token)!{RESET}\n")
+    print(f"  {GREEN}{BOLD} Tất cả test đều PASS hoặc SKIP (cần Token)!{RESET}\n")
     sys.exit(0)

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Hình khối trang trí làm nền -->
     <div class="background-shapes">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
     </div>
 
-    <!-- Thanh menu điều hướng -->
     <nav class="navbar">
         <div class="logo">🌍 SmartTourism</div>
         <div class="auth-section">
@@ -28,7 +28,6 @@
         </div>
     </nav>
 
-    <!-- Khung kính hiển thị nội dung chính (Glassmorphism) -->
     <main class="container glass-panel">
         <header class="text-center">
             <h1 class="gradient-text">Khám Phá Việt Nam Bằng AI</h1>
@@ -36,9 +35,14 @@
         </header>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="VD: Tôi muốn đi biển xanh cát trắng, có hải sản ngon..." autofocus>
+            <input type="text" id="searchInput" placeholder="VD: Tôi muốn đi biển xanh cát trắng, có hải sản ngon..."
+                autofocus>
             <button id="searchBtn" class="btn-glow">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
                 Tìm Kiếm
             </button>
         </div>
@@ -50,17 +54,15 @@
 
         <div id="error" class="alert alert-error hidden"></div>
 
-        <!-- Chứa danh sách kết quả -->
         <div id="results" class="results-grid"></div>
-        
-        <!-- Chứa lịch sử tìm kiếm -->
+
         <div id="historySection" class="history-section hidden">
             <h3>🕒 Lịch sử tìm kiếm gần đây</h3>
             <ul id="historyList"></ul>
         </div>
     </main>
 
-    <!-- Thêm thư viện Firebase (CDN) dạng module -->
     <script type="module" src="app.js"></script>
 </body>
+
 </html>
