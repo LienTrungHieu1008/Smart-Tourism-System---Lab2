@@ -4,13 +4,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebas
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBfw67yZRd66wa8i4Pf54CfR6cJ25fEKYY",
-  authDomain: "smarttourism-api.firebaseapp.com",
-  projectId: "smarttourism-api",
-  storageBucket: "smarttourism-api.firebasestorage.app",
-  messagingSenderId: "181735767446",
-  appId: "1:181735767446:web:5c9c6df147e089303531b7",
-  measurementId: "G-78BT07SC3B"
+    apiKey: "AIzaSyBfw67yZRd66wa8i4Pf54CfR6cJ25fEKYY",
+    authDomain: "smarttourism-api.firebaseapp.com",
+    projectId: "smarttourism-api",
+    storageBucket: "smarttourism-api.firebasestorage.app",
+    messagingSenderId: "181735767446",
+    appId: "1:181735767446:web:5c9c6df147e089303531b7",
+    measurementId: "G-78BT07SC3B"
 };
 
 const app = initializeApp(firebaseConfig);

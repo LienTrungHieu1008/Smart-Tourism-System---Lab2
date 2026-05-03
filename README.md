@@ -76,7 +76,7 @@ Frontend được xây dựng bằng HTML, CSS và JavaScript thuần (Vanilla J
 
 Video demo giới thiệu ứng dụng, hướng dẫn chạy hệ thống, thử nghiệm các tính năng tìm kiếm và xem dữ liệu được lưu trong Firebase.
 
-**Link Video:** [Chèn link YouTube/Google Drive của bạn vào đây]
+**Link Video:** [https://youtu.be/TShGBhNjC0M](https://youtu.be/TShGBhNjC0M)
 
 ---
 
