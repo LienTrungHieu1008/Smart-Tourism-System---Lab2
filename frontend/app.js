@@ -1,13 +1,8 @@
-// -------------------------------------------------------------
-// BÀI HỌC JS: Dưới đây là code để Frontend gọi xuống Backend
-// -------------------------------------------------------------
 const API_BASE_URL = "http://127.0.0.1:8000";
 
-// Tải thư viện Firebase trực tiếp từ máy chủ Google (CDN)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-// Thông tin cấu hình bạn lấy từ Firebase Console
 const firebaseConfig = {
   apiKey: "AIzaSyBfw67yZRd66wa8i4Pf54CfR6cJ25fEKYY",
   authDomain: "smarttourism-api.firebaseapp.com",
@@ -18,12 +13,10 @@ const firebaseConfig = {
   measurementId: "G-78BT07SC3B"
 };
 
-// Khởi tạo ứng dụng Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// Chọn các phần tử (nút bấm, ô nhập) trên màn hình HTML
 const loginBtn = document.getElementById('loginBtn');
 const logoutBtn = document.getElementById('logoutBtn');
 const userInfo = document.getElementById('userInfo');
@@ -39,22 +32,15 @@ const historyList = document.getElementById('historyList');
 
 let currentIdToken = null;
 
-// Lắng nghe xem người dùng đã đăng nhập hay chưa
 onAuthStateChanged(auth, async (user) => {
     if (user) {
-        // Nếu ĐÃ ĐĂNG NHẬP: Hiển thị Avatar, ẩn nút Login
         loginBtn.classList.add('hidden');
         userInfo.classList.remove('hidden');
         userName.textContent = user.displayName;
         userAvatar.src = user.photoURL;
-        
-        // Xin Google cái Token (Vé điện tử)
         currentIdToken = await user.getIdToken();
-        
-        // Lấy lịch sử tìm kiếm từ Backend
         fetchHistory(currentIdToken);
     } else {
-        // Nếu CHƯA ĐĂNG NHẬP: Hiện nút Login, xóa Token
         loginBtn.classList.remove('hidden');
         userInfo.classList.add('hidden');
         currentIdToken = null;
@@ -62,43 +48,35 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// Sự kiện bấm nút Đăng nhập
 loginBtn.addEventListener('click', () => {
     signInWithPopup(auth, provider).catch(error => {
         showError("Lỗi đăng nhập: " + error.message);
     });
 });
 
-// Sự kiện bấm nút Đăng xuất
 logoutBtn.addEventListener('click', () => {
     signOut(auth);
 });
 
-// Sự kiện bấm nút Tìm Kiếm
 searchBtn.addEventListener('click', performSearch);
 searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') performSearch(); // Ấn Enter cũng tìm được
+    if (e.key === 'Enter') performSearch();
 });
 
 async function performSearch() {
     const query = searchInput.value.trim();
     if (!query) return;
 
-    // Hiện biểu tượng Loading vòng xoay
     loadingDiv.classList.remove('hidden');
     resultsDiv.innerHTML = '';
     errorDiv.classList.add('hidden');
 
     try {
-        // Chuẩn bị túi đồ (Headers) để gửi xuống Backend
         const headers = { 'Content-Type': 'application/json' };
-        
-        // Nếu có Token thì nhét vào túi đồ
         if (currentIdToken) {
             headers['Authorization'] = `Bearer ${currentIdToken}`;
         }
 
-        // Gọi API POST /predict
         const response = await fetch(`${API_BASE_URL}/predict`, {
             method: 'POST',
             headers: headers,
@@ -111,21 +89,19 @@ async function performSearch() {
         }
 
         const data = await response.json();
-        renderResults(data); // Vẽ giao diện kết quả
-        
-        // Cập nhật lại lịch sử (vì Backend vừa lưu ngầm câu hỏi mới)
+        renderResults(data);
+
         if (currentIdToken) {
-            setTimeout(() => fetchHistory(currentIdToken), 1000);
+            setTimeout(() => fetchHistory(currentIdToken), 1500);
         }
 
     } catch (error) {
         showError(error.message);
     } finally {
-        loadingDiv.classList.add('hidden'); // Tắt Loading
+        loadingDiv.classList.add('hidden');
     }
 }
 
-// Vẽ giao diện các thẻ kết quả
 function renderResults(results) {
     if (results.length === 0) {
         showError("Không tìm thấy địa điểm nào phù hợp.");
@@ -135,8 +111,7 @@ function renderResults(results) {
     results.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'result-card';
-        div.style.animationDelay = `${index * 0.1}s`; // Hiệu ứng hiện ra lần lượt
-        
+        div.style.animationDelay = `${index * 0.1}s`;
         div.innerHTML = `
             <div class="card-header">
                 <div class="card-title">${item.name}</div>
@@ -148,24 +123,22 @@ function renderResults(results) {
     });
 }
 
-// Gọi API GET /history
 async function fetchHistory(token) {
     try {
         const response = await fetch(`${API_BASE_URL}/history`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!response.ok) return;
-        
+
         const data = await response.json();
         const history = data.history;
-        
+
         if (history && history.length > 0) {
             historySection.classList.remove('hidden');
             historyList.innerHTML = '';
-            
             history.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = `🔍 ${item.query}`;
+                li.textContent = `${item.query}`;
                 li.addEventListener('click', () => {
                     searchInput.value = item.query;
                     performSearch();

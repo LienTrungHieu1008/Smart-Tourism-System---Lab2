@@ -1,16 +1,4 @@
-"""
-╔══════════════════════════════════════════════════════════════╗
-║             SMART TOURISM API - BỘ KIỂM THỬ TỰ ĐỘNG         ║
-╚══════════════════════════════════════════════════════════════╝
-Chạy lệnh:  python test_api.py
-Yêu cầu:    Server đang chạy tại http://127.0.0.1:8000
 
-CÁC NHÓM TEST:
-  - Nhóm A: Endpoint công khai (không cần Token)
-  - Nhóm B: Endpoint tìm kiếm AI /predict
-  - Nhóm C: Endpoint bảo mật (cần Token) - Sẽ bỏ qua nếu không có TOKEN
-  - Nhóm D: Kiểm tra lỗi / Edge Cases
-"""
 import requests
 import json
 import sys
