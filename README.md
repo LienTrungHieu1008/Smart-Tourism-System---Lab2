@@ -1,113 +1,100 @@
-# 🌍 Smart Tourism API
+# LAB 2: API & FIREBASE STUDIO
 
-**Ứng dụng gợi ý điểm đến du lịch Việt Nam bằng AI (Semantic Search)**
+**Môn học:** Tư duy tính toán
 
-> Bài thực hành số 2 - Môn Tư Duy Tính Toán  
-> Trường Đại học Khoa Học Tự Nhiên - ĐHQG TP.HCM  
-> GVHD: Lê Đức Khoan
+**GVHD:** Lê Đức Khoan
 
-## 📋 Mô tả
+**Sinh viên thực hiện:** Liên Trung Hiếu - 24120049
 
-Smart Tourism là ứng dụng web cho phép người dùng tìm kiếm điểm đến du lịch bằng ngôn ngữ tự nhiên. Hệ thống sử dụng mô hình AI **Sentence Transformer (all-MiniLM-L6-v2)** từ Hugging Face để phân tích ngữ nghĩa câu truy vấn và so sánh với cơ sở dữ liệu gồm **1000 địa điểm du lịch** trên khắp Việt Nam.
+---
+
+## 1. MÔ TẢ DỰ ÁN
+
+Ứng dụng **Smart Tourism** là một hệ thống gợi ý du lịch thông minh, sử dụng **Semantic Search** để trả về các địa điểm phù hợp nhất dựa trên câu truy vấn bằng ngôn ngữ tự nhiên của người dùng. Hệ thống được xây dựng trên nền tảng **FastAPI** (Backend) và giao diện **HTML/CSS/JavaScript thuần** (Frontend).
 
 ### Tính năng chính
-- 🔍 **Tìm kiếm thông minh**: Nhập câu hỏi tự nhiên (VD: "Tôi muốn đi biển lặn san hô"), AI sẽ gợi ý các điểm đến phù hợp nhất.
-- 🔐 **Đăng nhập Google**: Tích hợp Firebase Authentication để xác thực người dùng.
-- 💾 **Lưu trữ dữ liệu**: Tự động lưu lịch sử tìm kiếm và danh sách yêu thích lên Firebase Firestore.
-- 📱 **Giao diện hiện đại**: Dark Mode, Glassmorphism, Responsive trên mọi thiết bị.
+- **Tìm kiếm thông minh**: Sử dụng Embedding Model để hiểu ý nghĩa câu hỏi và tìm địa điểm tương ứng.
+- **Xác thực người dùng**: Tích hợp **Firebase Authentication** để quản lý tài khoản.
+- **Quản lý dữ liệu**: Lưu trữ lịch sử tìm kiếm và địa điểm yêu thích của người dùng trên **Firebase Firestore**.
+- **API Endpoint**:
+    - `/predict`: Nhận câu hỏi và trả về kết quả gợi ý.
+    - `/auth/me`: Lấy thông tin người dùng hiện tại.
+    - `/favorites`, `/history`: Quản lý dữ liệu cá nhân.
 
-## 🏗️ Cấu trúc thư mục
+## 2. HƯỚNG DẪN CÀI ĐẶT ENVIRONMENT
 
-```
-Smart-Tourism-API/
-├── frontend/                # Giao diện người dùng
-│   ├── index.html           # Trang chính
-│   ├── style.css            # Thiết kế giao diện (Dark Mode)
-│   └── app.js               # Xử lý đăng nhập Firebase & gọi API
-├── backend/                 # Máy chủ xử lý logic
-│   ├── main.py              # File chạy chính (Entry Point)
-│   ├── core/                # Module cấu hình hệ thống
-│   │   ├── firebase.py      # Kết nối Firebase & hàm xác thực Token
-│   │   └── ai_model.py      # Khởi tạo mô hình AI & tính Vector
-│   ├── models/              # Định nghĩa cấu trúc dữ liệu
-│   │   └── schemas.py       # Các class Pydantic (Request/Response)
-│   ├── routers/             # Các API endpoint
-│   │   ├── search_router.py # API tìm kiếm AI (POST /predict)
-│   │   └── user_router.py   # API người dùng (/auth/me, /favorites, /history)
-│   └── data/                # Dữ liệu
-│       ├── data.py          # 1000 địa điểm du lịch Việt Nam
-│       └── generate_data.py # Script sinh dữ liệu
-├── README.md
-├── requirements.txt
-└── .gitignore
-```
-
-## ⚙️ Hướng dẫn cài đặt Environment
-
-### Yêu cầu hệ thống
+**Yêu cầu hệ thống:**
 - Python 3.10 trở lên
-- Google Cloud CLI (`gcloud`) đã cài đặt
-- Tài khoản Firebase (đã tạo dự án và bật Authentication + Firestore)
+- Google Cloud CLI (gcloud)
 
-### Bước 1: Clone repository
+**Các bước cài đặt:**
+
+1. Clone repository về máy:
 ```bash
-git clone https://github.com/LienTrungHieu1008/Smart-Tourism-API.git
-cd Smart-Tourism-API
+git clone https://github.com/LienTrungHieu1008/Smart-Tourism-API-Lab2.git
+cd Smart-Tourism-API-Lab2
 ```
 
-### Bước 2: Cài đặt thư viện Python
+2. Cài đặt các thư viện phụ thuộc:
 ```bash
 pip install -r requirements.txt
 ```
 
-### Bước 3: Xác thực Firebase (Application Default Credentials)
+3. Xác thực Firebase (Application Default Credentials):
+Chạy lệnh sau và đăng nhập bằng tài khoản Google đã liên kết với dự án Firebase. Đảm bảo cấp quyền truy cập đầy đủ khi trình duyệt yêu cầu:
 ```bash
 gcloud auth application-default login
 ```
-Trình duyệt sẽ bật lên, đăng nhập bằng tài khoản Google liên kết với dự án Firebase và **tích chọn tất cả các quyền** rồi bấm Allow.
 
-## 🚀 Hướng dẫn chạy Backend
+## 3. HƯỚNG DẪN CHẠY BACKEND
 
+Backend được xây dựng bằng FastAPI. Để khởi động máy chủ:
+
+1. Di chuyển vào thư mục backend:
 ```bash
 cd backend
+```
+
+2. Chạy ứng dụng thông qua Uvicorn:
+```bash
 uvicorn main:app --reload
 ```
 
-Server sẽ khởi chạy tại: `http://127.0.0.1:8000`
+Máy chủ sẽ khởi chạy tại địa chỉ: `http://127.0.0.1:8000`
+Tài liệu API (Swagger UI) có sẵn tại: `http://127.0.0.1:8000/docs`
 
-Tài liệu API tự động (Swagger UI): `http://127.0.0.1:8000/docs`
+## 4. HƯỚNG DẪN CHẠY FRONTEND
 
-## 🎨 Hướng dẫn chạy Frontend
+Frontend được xây dựng bằng HTML, CSS và JavaScript thuần (Vanilla JS).
 
-1. Cài Extension **Live Server** trong VSCode.
-2. Click chuột phải vào file `frontend/index.html` → chọn **"Open with Live Server"**.
-3. Trình duyệt tự động mở tại `http://127.0.0.1:5500`.
+1. Mở thư mục dự án bằng Visual Studio Code.
+2. Đảm bảo đã cài đặt extension "Live Server".
+3. Nhấp chuột phải vào file `frontend/index.html` và chọn "Open with Live Server".
+4. Trình duyệt sẽ tự động mở ứng dụng tại địa chỉ: `http://127.0.0.1:5500`
 
-## 📡 Danh sách API Endpoints
+## 5. ĐƯỜNG DẪN ĐẾN VIDEO DEMO
 
-| Phương thức | Đường dẫn | Mô tả | Yêu cầu Token |
-|---|---|---|---|
-| `GET` | `/` | Thông tin hệ thống | ❌ |
-| `GET` | `/health` | Kiểm tra trạng thái | ❌ |
-| `POST` | `/predict` | Gợi ý điểm đến bằng AI | ❌ (Tùy chọn) |
-| `GET` | `/auth/me` | Thông tin người dùng hiện tại | ✅ |
-| `POST` | `/favorites` | Lưu địa điểm yêu thích | ✅ |
-| `GET` | `/favorites` | Xem danh sách yêu thích | ✅ |
-| `GET` | `/history` | Xem lịch sử tìm kiếm | ✅ |
+Video demo giới thiệu ứng dụng, hướng dẫn chạy hệ thống, thử nghiệm các tính năng tìm kiếm và xem dữ liệu được lưu trong Firebase.
 
-## 🛠️ Công nghệ sử dụng
+**Link Video:** [Chèn link YouTube/Google Drive của bạn vào đây]
 
-- **Backend**: FastAPI, Uvicorn, Pydantic
-- **AI/ML**: Sentence Transformers (Hugging Face), PyTorch
-- **Authentication**: Firebase Authentication (Google Login)
-- **Database**: Firebase Firestore
-- **Frontend**: HTML, CSS (Vanilla), JavaScript (ES Module)
+---
 
-## 🎬 Video Demo
+## 6. THÔNG TIN BỔ SUNG
 
-[👉 Xem Video Demo tại đây](https://youtube.com/your-video-link)
+### Cấu trúc thư mục chính
+- `frontend/`: Chứa giao diện người dùng (index.html, style.css, app.js).
+- `backend/`: Chứa mã nguồn máy chủ (FastAPI).
+  - `core/`: Cấu hình hệ thống (Firebase, AI Model).
+  - `models/`: Định nghĩa cấu trúc dữ liệu (Pydantic).
+  - `routers/`: Các endpoint API.
+  - `data/`: Dữ liệu mẫu.
 
-## 👤 Thông tin sinh viên
-
-- **Họ tên**: Liên Trung Hiếu
-- **MSSV**: 24120049
+### Danh sách API Endpoints
+- `GET /`: Kiểm tra thông tin hệ thống.
+- `GET /health`: Kiểm tra trạng thái hoạt động.
+- `POST /predict`: Gợi ý điểm đến bằng AI (Feature chính).
+- `GET /auth/me`: Lấy thông tin người dùng hiện tại (Yêu cầu Token).
+- `POST /favorites`: Lưu địa điểm yêu thích (Yêu cầu Token).
+- `GET /favorites`: Lấy danh sách yêu thích (Yêu cầu Token).
+- `GET /history`: Lấy lịch sử tìm kiếm (Yêu cầu Token).
